@@ -8,6 +8,8 @@
 
 int main(void)
 {
+	struct addrinfo *server_info;
+	struct addrinfo hints;
 	int return_val;
 	int sockfd;
 
@@ -15,6 +17,7 @@ int main(void)
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE;
 
+	memset(&hints, )
 
 	/*get hostname address info*/
 	return_val = getaddrinfo(NULL, PORT, &hints, &server_info);
@@ -32,7 +35,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	/*create a connection*/
+	/*connect socket fd to address*/
 	return_val = connect(sockfd, server_info->ai_addr, server_info->ai_addrlen);
 	if (return_val == -1)
 	{
