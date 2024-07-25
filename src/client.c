@@ -1,6 +1,5 @@
 #include "socket.h"
 
-void 
 /**
  * main - Entry point of client program
  * Return: Always 0 on sucess
@@ -12,7 +11,7 @@ int main(void)
 	struct addrinfo hints;
 	int return_val;
 	int sockfd;
-	char received_msg[BUF];
+	char received_msg[1024];
 	char *line = NULL;
 	size_t line_cap = 0;
 	ssize_t line_len;
@@ -28,8 +27,8 @@ int main(void)
 	return_val = getaddrinfo(NULL, PORT, &hints, &server_info);
 	if (return_val != 0)
 	{
-		fprintf(stderr, "error: getaddrinfo(), %s\n", gai_sterror(return_val));
-		exit(EXIT_FAILURE)
+		fprintf(stderr, "error: getaddrinfo(), %s\n", gai_strerror(return_val));
+		exit(EXIT_FAILURE);
 	}
 
 	/*create a socket*/
@@ -70,7 +69,7 @@ int main(void)
 			exit(EXIT_FAILURE);
 		} else if (bytes_read == 0)
 		{
-			dprintf(2, "recv(): server closed the connection\n", stderr);
+			dprintf(2, "recv(): server closed the connection\n");
 			exit(EXIT_FAILURE);
 		}
 		received_msg[bytes_read] = '\0';
