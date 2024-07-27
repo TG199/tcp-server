@@ -1,9 +1,9 @@
 #include "socket.h"
 
 /**
- * accept_new_connection - accept new connection to the server
+ * accept_new_conn - accept new connection to the server
  * Return: true on client connection */
-static bool accept_new_connection(void)
+static bool accept_new_conn(void)
 {
         struct sockaddr_storage client_addr = {};
         socklen_t addr_size = sizeof client_addr;
@@ -29,11 +29,11 @@ static bool accept_new_connection(void)
 }
 
 /**
- * handle_connection_io - handle incoming connections
+ * handle_conn- handle incoming connections
  * Returns: Noting
  */
 
-static void handle_connection_io(struct Connection *conn)
+static void handle_conn(struct Connection *conn)
 {
         int bytes_read;
         int bytes_sent, bytes_sent2;
@@ -75,7 +75,7 @@ static void handle_connection_io(struct Connection *conn)
 
                 conn->state = CONN_STATE_REQ;
         } else {
-                dprintf(2, "handle_connection_io():invalid state\n");
+                dprintf(2, "handle_conn():invalid state\n");
                 exit(EXIT_FAILURE);
         }
 

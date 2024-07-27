@@ -80,7 +80,7 @@ int main(void)
     {
         vector_clear(poll_fds);
 
-        socket_pfd = {socket_fd, POLLIN, 0};
+        socket_pfd = {sockfd, POLLIN, 0};
         vector_push(poll_fds, &socket_pfd);
 
         num_connections = vector_length(connections);
@@ -131,16 +131,16 @@ int main(void)
 
                 if (!conn)
                 {
-                    continue
+                    continue;
                 }
 
-                handle_connection_io(conn);
+                handle_conn(conn);
             }
         }
 
         if (((struct pollfd *)vector_get(poll_fds, 0))->revents & POLLIN)
         {
-            accept_new_connection();
+            accept_new_conn();
         }
     }
     return (0);
