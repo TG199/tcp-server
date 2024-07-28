@@ -16,7 +16,7 @@
 
 
 /*Port to run server*/
-const char *PORT = "4001";
+#define PORT "4001"
 
 #define BACKLOG 5
 
@@ -35,8 +35,6 @@ struct Connection {
     char write_buf[1024];
 };
 
-static bool accept_new_conn(void);
-static void handle_conn(struct Connection *conn);
 
 /*Vector struct*/
 #define VECTOR_CAP 10
@@ -47,7 +45,7 @@ struct Vector {
     size_t capacity;
     size_t elem_size;
 };
-static void safe_free(void **ptr);
+void safe_free(void **ptr);
 
 struct Vector *vector_init(size_t elem_size, size_t capacity);
 void vector_free(struct Vector *vector);
@@ -60,5 +58,8 @@ void *vector_data(struct Vector *vector);
 size_t vector_length(struct Vector *vector);
 size_t vector_capacity(struct Vector *vector);
 size_t vector_elem_size(struct Vector *vector);
+
+bool accept_new_conn(int sockfd, struct Vector *connections);
+void handle_conn(struct Connection *conn);
 
 #endif

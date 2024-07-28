@@ -7,7 +7,7 @@ size_t vector_elem_size(struct Vector *vector)
     return vector->elem_size;
 }
 
-static void safe_free(void **ptr)
+void safe_free(void **ptr)
 {
     assert(ptr != NULL);
     

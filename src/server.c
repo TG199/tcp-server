@@ -141,7 +141,7 @@ int main(void)
 
         if (((struct pollfd *)vector_get(poll_fds, 0))->revents & POLLIN)
         {
-            accept_new_conn();
+            accept_new_conn(sockfd, connections);
         }
     }
     return (0);

@@ -3,12 +3,12 @@
 /**
  * accept_new_conn - accept new connection to the server
  * Return: true on client connection */
-static bool accept_new_conn(void)
+bool accept_new_conn(int sockfd, struct Vector *connections)
 {
         struct sockaddr_storage client_addr = {};
         socklen_t addr_size = sizeof client_addr;
         int conn_fd;
-        struct Connection conn
+        struct Connection conn;
 
         conn_fd = accept(sockfd, (struct sockaddr *)&client_addr, &addr_size);
         if (conn_fd == -1)
@@ -16,10 +16,8 @@ static bool accept_new_conn(void)
                 perror("error: accept()");
                 return (false);
         }
-        conn = {
-                .fd = conn_fd,
-                .state = CONN_STATE_REQ,
-        };
+        conn.fd = conn_fd;
+	conn.state = CONN_STATE_REQ;
 
         vector_push(connections, &conn);
 
@@ -33,7 +31,7 @@ static bool accept_new_conn(void)
  * Returns: Noting
  */
 
-static void handle_conn(struct Connection *conn)
+void handle_conn(struct Connection *conn)
 {
         int bytes_read;
         int bytes_sent, bytes_sent2;
@@ -60,7 +58,7 @@ static void handle_conn(struct Connection *conn)
         
         } else if (conn->state == CONN_STATE_RES)
         {
-                char reply_start[] =="you said: ";
+                char reply_start[] = "you said: ";
                 memcpy(conn->write_buf, reply_start, sizeof(reply_start));
 
                 strncat(conn->write_buf, conn->read_buf,
