@@ -1,7 +1,7 @@
 #include "socket.h"
 
 
-Vector *vector_init(size_t elem_size, size_t capacity)
+struct Vector *vector_init(size_t elem_size, size_t capacity)
 {
     assert(elem_size > 0);
 
@@ -29,7 +29,7 @@ Vector *vector_init(size_t elem_size, size_t capacity)
 }
 
 
-void vector_free(struct vector *vector, void *element)
+void vector_free(struct Vector *vector)
 {
     assert(vector != NULL);
 
@@ -37,7 +37,7 @@ void vector_free(struct vector *vector, void *element)
     safe_free((void **)&vector);
 }
 
-bool vector_pus(struct Vector *vector, void *element)
+bool vector_push(struct Vector *vector, void *element)
 {
     size_t new_capacity;
     assert(vector != NULL);
@@ -74,7 +74,7 @@ void *vector_pop(struct Vector *vector)
 void *vector_get(struct Vector *vector, size_t idx)
 {
     assert(vector != NULL);
-    assert(idx < vector->lenth);
+    assert(idx < vector->length);
 
-    return &((char *)vector->data)[index * vector->elem_size];
+    return &((char *)vector->data)[idx * vector->elem_size];
 }

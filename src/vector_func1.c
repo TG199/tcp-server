@@ -1,43 +1,43 @@
 #include "socket.h"
 
-void vector_set(Vector *vector, size_t idx, void *element)
+void vector_set(struct Vector *vector, size_t idx, void *element)
 {
     assert(vector != NULL);
-    assert(index < vector->length);
+    assert(idx < vector->length);
 
-    memcpy(&((char *)vector->data)[index * vector->elem_size], element,
+    memcpy(&((char *)vector->data)[idx * vector->elem_size], element,
         vector->elem_size);
 }
 
-void vector_clear(Vector *vector)
+void vector_clear(struct Vector *vector)
 {
     assert(vector != NULL);
 
     vector->length = 0;
 }
 
-void vector_data(Vector *vector)
+void *vector_data(struct Vector *vector)
 {
     assert(vector != NULL);
 
     return (vector->data);
 }
 
-size_t vector_length(Vector *vector)
+size_t vector_length(struct Vector *vector)
 {
     assert(vector != NULL);
 
     return (vector->length);
 }
 
-size_t vector_capacity(Vector *vector)
+size_t vector_capacity(struct Vector *vector)
 {
     assert(vector != NULL);
 
     return vector->capacity;
 }
 
-size_t vector_elem_size(Vector *vector)
+size_t vector_elem_size(struct Vector *vector)
 {
     assert(vector != NULL);
 
@@ -46,7 +46,7 @@ size_t vector_elem_size(Vector *vector)
 
 static void safe_free(void **ptr)
 {
-    assert(ptr != NULL)
+    assert(ptr != NULL);
     
     if (*ptr == NULL)
     {

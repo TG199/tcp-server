@@ -1,6 +1,6 @@
 #include "socket.h"
 
-size_t vector_elem_size(Vector *vector)
+size_t vector_elem_size(struct Vector *vector)
 {
     assert(vector != NULL);
 
@@ -9,7 +9,7 @@ size_t vector_elem_size(Vector *vector)
 
 static void safe_free(void **ptr)
 {
-    assert(ptr != NULL)
+    assert(ptr != NULL);
     
     if (*ptr == NULL)
     {

@@ -12,18 +12,20 @@
 #include <poll.h>
 #include <unistd.h>
 #include <stddef.h>
+#include <assert.h>
 
 
 /*Port to run server*/
 const char *PORT = "4001";
-#define BACKLOG 5;
+
+#define BACKLOG 5
 
 
 /*Connection struct */
 enum ConnectionState {
     CONN_STATE_REQ = 0,
     CONN_STATE_RES,
-    CONN_STATS_END,
+    CONN_STATE_END,
 };
 
 struct Connection {
@@ -44,16 +46,16 @@ struct Vector {
     size_t length;
     size_t capacity;
     size_t elem_size;
-} *Vector;
-static void safe_free(void);
+};
+static void safe_free(void **ptr);
 
 struct Vector *vector_init(size_t elem_size, size_t capacity);
 void vector_free(struct Vector *vector);
 bool vector_push(struct Vector *vector, void *element);
 void *vector_pop(struct Vector *vector);
-void *vecor_get(struct Vector *vector, size_t index);
-void vector_set(struct Vector *vector, size_t index, void *element);
-void vector_clear(struct vector *vector);
+void *vector_get(struct Vector *vector, size_t idx);
+void vector_set(struct Vector *vector, size_t idx, void *element);
+void vector_clear(struct Vector *vector);
 void *vector_data(struct Vector *vector);
 size_t vector_length(struct Vector *vector);
 size_t vector_capacity(struct Vector *vector);
