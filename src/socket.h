@@ -13,6 +13,8 @@
 #include <unistd.h>
 #include <stddef.h>
 #include <assert.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 
 
 /*Port to run server*/
@@ -61,5 +63,12 @@ size_t vector_elem_size(struct Vector *vector);
 
 bool accept_new_conn(int sockfd, struct Vector *connections);
 void handle_conn(struct Connection *conn);
+
+
+/*Openssl functions */
+void init_openssl(void);
+void cleanup_openssl(void);
+SSL_CTX *create_context(void);
+void configure_context(SSL_CTX *ctx);
 
 #endif
